@@ -10,14 +10,16 @@
 #import <CoreLocation/CoreLocation.h>
 
 typedef NS_ENUM(NSInteger, DYLocationFixMode) {
-        DYLocationFixAuto,
-        DYLocationFixOn,
-        DYLocationFixOff
+        DYLocationFixAuto = 0,
+        DYLocationFixEnabled = 1,
+        DYLocationFixDisabled = 2
 };
 
-@interface DYLocationConverter : NSObject {
-  static DYLocationFixMode fixMode;
-}
+static DYLocationFixMode _fixMode;
+
+@interface DYLocationConverter : NSObject
+
+@property (class, nonatomic) DYLocationFixMode fixMode;
 
 /**
  *	@brief	世界标准地理坐标(WGS84) 转换成 中国国测局地理坐标（GCJ-02）<火星坐标>

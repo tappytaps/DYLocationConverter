@@ -30,12 +30,20 @@
     return ret;
 }
 
++ (DYLocationFixMode)fixMode {
+    return _fixMode;
+}
+
++ (void)setFixMode:(DYLocationFixMode)fixMode {
+    _fixMode = fixMode;
+}
+
+
 +(BOOL)shouldEncryt:(CLLocationCoordinate2D)coordinate {
-    return (fixMode == DYLocationFixOn) || ((fixMode == DYLocationFixAudo) && [[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate]);
+    return ((DYLocationConverter.fixMode == DYLocationFixEnabled) || ((DYLocationConverter.fixMode == DYLocationFixAuto) && [[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate]));
 }
 
 + (CLLocationCoordinate2D)gcj02Encrypt:(CLLocationCoordinate2D)coordinate {
-    //if ([[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate]) {
     if ([DYLocationConverter shouldEncryt: coordinate]) {
         CLLocationCoordinate2D resPoint;
         double ggLat = coordinate.latitude;
