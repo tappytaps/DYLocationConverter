@@ -30,8 +30,13 @@
     return ret;
 }
 
++(BOOL)shouldEncryt:(CLLocationCoordinate2D)coordinate {
+    return (fixMode == DYLocationFixOn) || ((fixMode == DYLocationFixAudo) && [[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate]);
+}
+
 + (CLLocationCoordinate2D)gcj02Encrypt:(CLLocationCoordinate2D)coordinate {
-    if ([[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate]) {
+    //if ([[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate]) {
+    if ([DYLocationConverter shouldEncryt: coordinate]) {
         CLLocationCoordinate2D resPoint;
         double ggLat = coordinate.latitude;
         double ggLon = coordinate.longitude;
@@ -43,7 +48,7 @@
         double sqrtMagic = sqrt(magic);
         dLat = (dLat * 180.0) / ((DY_A * (1 - DY_EE)) / (magic * sqrtMagic) * M_PI);
         dLon = (dLon * 180.0) / (DY_A / sqrtMagic * cos(radLat) * M_PI);
-        
+
         resPoint.latitude = ggLat + dLat;
         resPoint.longitude = ggLon + dLon;
         return resPoint;
