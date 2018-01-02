@@ -38,9 +38,17 @@
     _fixMode = fixMode;
 }
 
++ (BOOL)isInChina {
+    return _isInChina;
+}
+
++ (void)setIsInChina:(BOOL)isInChina {
+    _isInChina = isInChina;
+}
+
 
 +(BOOL)shouldEncryt:(CLLocationCoordinate2D)coordinate {
-    return ((DYLocationConverter.fixMode == DYLocationFixEnabled) || ((DYLocationConverter.fixMode == DYLocationFixAuto) && [[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate]));
+    return ((DYLocationConverter.fixMode == DYLocationFixEnabled) || ((DYLocationConverter.fixMode == DYLocationFixAuto) && [[DYCoordinateInChina sharedInstance] coordinateInChina:coordinate] && DYLocationConverter.isInChina));
 }
 
 + (CLLocationCoordinate2D)gcj02Encrypt:(CLLocationCoordinate2D)coordinate {

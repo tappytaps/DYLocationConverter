@@ -16,10 +16,12 @@ typedef NS_ENUM(NSInteger, DYLocationFixMode) {
 };
 
 static DYLocationFixMode _fixMode;
+static BOOL _isInChina;
 
 @interface DYLocationConverter : NSObject
 
 @property (class, nonatomic) DYLocationFixMode fixMode;
+@property (class, nonatomic) BOOL isInChina;
 
 /**
  *	@brief	世界标准地理坐标(WGS84) 转换成 中国国测局地理坐标（GCJ-02）<火星坐标>
